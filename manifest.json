@@ -4,27 +4,32 @@
 	"name": "Free Subtitle for YouTube",
 	"description": "Free Subtitle for YouTube",
 	"icons": {
-		"128": "images/icon.png"
+		"128": "images/icon128.png"
 	},
-	"action": {
-		"default_popup": "hello.html",
-		"default_icon": "hello_extensions.png"
-	},
-	"content_scripts": [
+	"web_accessible_resources": [
 		{
-			"js": ["scripts/content.js"],
+			"resources": ["images/*.*"],
 			"matches": ["https://www.youtube.com/*"]
 		}
 	],
-	"web_accessible_resources": [
+	"action": {
+		"default_icon": {
+			"128": "images/icon128.png"
+		},
+
+		"default_title": "Free Subtitle for YouTube TETST"
+	},
+
+	"permissions": ["tabs", "storage"],
+	"content_scripts": [
 		{
-			"resources": [
-				"subtitles-tab.html",
-				"subtitles-modal.html",
-				"onboarding.html",
-				"images/*"
-			],
-			"matches": ["https://www.youtube.com/*"]
+			"matches": ["https://www.youtube.com/*"],
+			"js": ["js/content.js"],
+			"run_at": "document_start",
+			"all_frames": true
 		}
-	]
+	],
+	"background": {
+		"service_worker": "js/background.js"
+	}
 }
